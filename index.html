@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ben's Interaction Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .button.lunch { background-color: lightgray; }
+        .button.other { background-color: lightgray; }
+        .button.green { background-color: green; }
+        .button.red { background-color: red; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <h1>Hi Ben, I'm interested.</h1>
+    <p>Please click through the following questions:</p>
+
+    <div class="question" id="question1">
+        <p>1. Does this meet during lunch or another time?</p>
+        <button id="lunchButton" class="button lunch" onclick="handleLunchClick()">Lunch</button>
+        <button id="otherButton" class="button other" onclick="handleOtherClick()">Other</button>
+    </div>
+
+    <div class="question hidden" id="question2">
+        <p>2. I'm not sure I have enough time. Can you keep me on the email list or up-to-date otherwise?</p>
+        <button id="yesButton" class="button" style="background-color: blue;" onclick="sendEmail('yes')">Yes</button>
+        <button id="noButton" class="button" style="background-color: orange;" onclick="sendEmail('no')">No</button>
+    </div>
+
+    <script>
+        function handleLunchClick() {
+            document.getElementById('lunchButton').classList.add('green');
+            document.getElementById('otherButton').classList.remove('red');
+            document.getElementById('otherButton').classList.add('hidden');
+            document.getElementById('question2').classList.remove('hidden');
+        }
+
+        function handleOtherClick() {
+            document.getElementById('otherButton').classList.add('red');
+            document.getElementById('lunchButton').classList.remove('green');
+            document.getElementById('lunchButton').classList.add('hidden');
+            document.getElementById('question2').classList.remove('hidden');
+        }
+
+        function sendEmail(answer) {
+            let emailBody;
+            if (answer === 'yes') {
+                emailBody = 'Great, happy to have you.';
+            } else {
+                emailBody = 'Sorry, but instead I\'ve decided you get a new macbook pro every year';
+            }
+
+            window.location.href = `mailto:dfh@bayschoolsf.org?subject=Response from Ben&body=${encodeURIComponent(emailBody)}`;
+        }
+    </script>
+
+</body>
+</html>
